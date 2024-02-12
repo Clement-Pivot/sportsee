@@ -1,0 +1,16 @@
+@import '/src/utils/variables.scss';
+@import '/src/utils/mixins.scss';
+
+.navbar {
+  background-color: $navbar-black;
+  color: $white;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  align-items: center;
+  height: 91px;
+  font-size: 24px;
+  .logo {
+    margin-left: 20px;
+  }
+  @include shadow;
+}
