@@ -1,6 +1,7 @@
 @import '/src/utils/variables.scss';
 
 .header {
+  grid-area: header;
   &__h1 {
     margin: 0;
     font-size: 48px;
