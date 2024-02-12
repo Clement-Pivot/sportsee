@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react'
+import { User, Activity, AverageSessions, Performance } from '/src/utils/types'
 
-export function useApi(url: string) {
-  const [response, setResponse] = useState()
+export function useApi(
+  url: string,
+): User | Activity | AverageSessions | Performance {
+  const [response, setResponse] = useState<
+    User | Activity | AverageSessions | Performance
+  >()
   useEffect(() => {
     fetch(`http://127.0.0.1:3000${url}`)
       .then((res) => {
@@ -16,7 +21,7 @@ export function useApi(url: string) {
         }
       })
       .then((data) => {
-        setResponse(data)
+        setResponse(data.data)
       })
   }, [url])
   return response
