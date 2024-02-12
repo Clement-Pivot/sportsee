@@ -1,4 +1,4 @@
-# Kasa
+# SportSee
 
 Code du projet 12 SportSee de la formation React d'OpenClassroom en TypeScript avec React, SASS et D3.
 
