@@ -1,0 +1,10 @@
+#root {
+  display: grid;
+  grid-template-columns: 117px 1fr;
+  grid-template-areas:
+    'navbar navbar'
+    'leftbar content';
+  .content {
+    grid-area: content;
+  }
+}

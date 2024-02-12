@@ -2,6 +2,7 @@
 @import '/src/utils/mixins.scss';
 
 .navbar {
+  grid-area: navbar;
   background-color: $navbar-black;
   color: $white;
   display: grid;
