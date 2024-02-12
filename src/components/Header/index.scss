@@ -1,0 +1,19 @@
+@import '/src/utils/variables.scss';
+
+.header {
+  &__h1 {
+    margin: 0;
+    font-size: 48px;
+    font-weight: 400;
+    margin-bottom: 25px;
+  }
+  &__name {
+    color: $red;
+    display: inline;
+  }
+  &__h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 400;
+  }
+}
