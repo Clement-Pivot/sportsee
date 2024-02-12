@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import { User, Activity, AverageSessions, Performance } from '/src/utils/types'
+import { User, Activity, AverageSessions, Performance } from 'utils/types'
 
 export function useApi(
   url: string,
-): User | Activity | AverageSessions | Performance {
+): User | Activity | AverageSessions | Performance | undefined {
   const [response, setResponse] = useState<
     User | Activity | AverageSessions | Performance
   >()
