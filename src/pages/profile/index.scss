@@ -7,5 +7,12 @@
   .content {
     padding: 50px 100px;
     grid-area: content;
+    display: grid;
+    grid-template-areas:
+      'header header header header'
+      'activity activity activity consumption'
+      'activity activity activity consumption'
+      'sessions type score consumption'
+      'sessions type score consumption';
   }
 }
