@@ -5,6 +5,7 @@
     'navbar navbar'
     'leftbar content';
   .content {
+    padding: 50px 100px;
     grid-area: content;
   }
 }
