@@ -1,5 +1,5 @@
 {
-  "name": "kasa",
+  "name": "sportsee",
   "version": "0.1.0",
   "private": false,
   "dependencies": {
@@ -9,7 +9,9 @@
     "web-vitals": "^3.5.2"
   },
   "scripts": {
-    "start": "vite",
+    "start": "concurrently \"npm run start:front\" \"npm run start:back\"",
+    "start:front": "vite",
+    "start:back": "cd backend && npm run start",
     "build": "vite build",
     "test": "vitest run",
     "coverage": "vitest run --coverage"
@@ -41,6 +43,7 @@
     "@types/react-dom": "^18.2.18",
     "@vitejs/plugin-react": "^4.2.1",
     "@vitest/coverage-v8": "^1.2.2",
+    "concurrently": "^8.2.2",
     "eslint": "^8.56.0",
     "prettier": "^3.2.4",
     "react-router-dom": "^6.21.3",
