@@ -28,12 +28,12 @@ export default function ActivityGraph({ content }: Props) {
     d3.min(content.sessions.map((s) => s.kilogram))
   // console.log(weightTicks)
   const weightRange = getRange(weightMinMax)
-  const width = 702,
-    height = 145,
-    marginTop = 30,
-    marginRight = 30,
-    marginBottom = 30,
-    marginLeft = 30,
+  const width = 835,
+    height = 320,
+    marginTop = 112,
+    marginRight = 90,
+    marginBottom = 62,
+    marginLeft = 43,
     strokeWidth = 7,
     barOffset = 7,
     gx = useRef<any>(),
