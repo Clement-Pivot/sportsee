@@ -15,19 +15,19 @@ export default function ActivityGraph({ content }: Props) {
     }
     return result
   }
-
   const weightMinMax: number[] = d3.extent(
     content.sessions.map((s) => s.kilogram),
   )
+  // weightMinMax = [76, 81]
   const caloriesMinMax: number[] = d3.extent(
     content.sessions.map((s) => s.calories),
   )
-  console.log(content.sessions)
   const weightTicks =
     d3.max(content.sessions.map((s) => s.kilogram)) -
     d3.min(content.sessions.map((s) => s.kilogram))
-  // console.log(weightTicks)
+  // weightTicks = 5
   const weightRange = getRange(weightMinMax)
+  // weightRange = [76, 77, 78, 79, 80, 81]
   const width = 835,
     height = 320,
     marginTop = 112,
@@ -39,22 +39,11 @@ export default function ActivityGraph({ content }: Props) {
     gx = useRef<any>(),
     gy = useRef<any>()
 
-  console.log(weightMinMax)
   // Declare the x (horizontal position) scale with dates from sessions.
   const x = d3.scaleLinear(
     [1, content.sessions.length],
     [marginLeft, width - marginRight],
   )
-  const xTicks = weightRange.map((tick) => (
-    <line
-      x1={marginLeft}
-      x2={width - marginRight}
-      y1="0"
-      y2="0"
-      stroke="orange"
-      strokeWidth="5"
-    />
-  ))
   // Declare the y (vertical position) scale from weight.
   const weightYscale = d3.scaleLinear(weightMinMax, [
     height - marginBottom,
@@ -90,29 +79,53 @@ export default function ActivityGraph({ content }: Props) {
           ref={gx}
           transform={`translate(0,${height - marginBottom})`}
           className="activity__xscale"
+          // key="activity__xscale"
         />
-        {/* <g
-          className="activity__xticks"
+        <g
+          className="activity__yticks"
           transform={`translate(0,${height - marginBottom})`}
+          // key="activity__yticks"
         >
-          {xTicks}
-        </g> */}
+          <line
+            x1={marginLeft - strokeWidth - barOffset / 2}
+            x2={width - marginRight + strokeWidth + barOffset / 2}
+            y1="0"
+            y2="0"
+            stroke="currentColor"
+            strokeWidth="1"
+            key={`yAxis-tick-0`}
+          />
+          {weightRange.map((tick) => (
+            <line
+              x1={marginLeft - strokeWidth - barOffset / 2}
+              x2={width - marginRight + strokeWidth + barOffset / 2}
+              y1={-weightYscale(tick) + marginTop}
+              y2={-weightYscale(tick) + marginTop}
+              stroke="currentColor"
+              strokeWidth="1"
+              strokeDasharray="2"
+              key={`yAxis-tick-${tick}`}
+            />
+          ))}
+        </g>
         <g
           ref={gy}
           transform={`translate(${width - marginRight + barOffset},0)`}
           className="activity__yscale"
+          key="activity__yscale"
         />
         <g
           fill="currentColor"
           stroke="currentColor"
           strokeWidth={strokeWidth}
-          className="activity__weightbar"
-          key="activity__weightbar"
+          className="activity__bars"
+          key="activity__bars"
         >
           {content.sessions.map((d, i) => (
             <>
               <line
                 key={`activity__weightbar-line-${i}`}
+                className="activity__weightbar"
                 x1={x(i + 1) - barOffset}
                 x2={x(i + 1) - barOffset}
                 y1={weightYscale(d.kilogram)}
@@ -120,26 +133,16 @@ export default function ActivityGraph({ content }: Props) {
               />
               <circle
                 key={`activity__weightbar-circle-${i}`}
+                className="activity__weightbar"
                 cx={x(i + 1) - barOffset}
                 cy={weightYscale(d.kilogram)}
                 r="0.5"
                 strokeWidth={strokeWidth - 1}
                 clipPath="url(#cut-off-bottom)"
               />
-            </>
-          ))}
-        </g>
-        <g
-          fill="currentColor"
-          stroke="currentColor"
-          strokeWidth={strokeWidth}
-          className="activity__caloriesbar"
-          key="activity__caloriesbar"
-        >
-          {content.sessions.map((d, i) => (
-            <>
               <line
                 key={`activity__caloriesbar-line-${i}`}
+                className="activity__caloriesbar"
                 x1={x(i + 1) + barOffset}
                 x2={x(i + 1) + barOffset}
                 y1={caloriesYscale(d.calories)}
@@ -147,6 +150,7 @@ export default function ActivityGraph({ content }: Props) {
               />
               <circle
                 key={`activity__caloriesbar-circle-${i}`}
+                className="activity__caloriesbar"
                 cx={x(i + 1) + barOffset}
                 cy={caloriesYscale(d.calories)}
                 r="0.5"

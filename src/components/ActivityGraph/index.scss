@@ -1,13 +1,25 @@
+@import 'src/utils/variables.scss';
+
 .activity {
+  background-color: #fbfbfb;
+  border-radius: 5px;
   .domain,
   .tick line {
     display: none;
   }
-
+  &__bars:hover {
+    background-color: black;
+  }
   &__weightbar {
     color: black;
   }
   &__caloriesbar {
     color: red;
+  }
+  &__yticks {
+    color: #dedede;
+    line:last-of-type {
+      display: none;
+    }
   }
 }
