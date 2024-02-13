@@ -1,4 +1,9 @@
 .activity {
+  .domain,
+  .tick line {
+    display: none;
+  }
+
   &__weightbar {
     color: black;
   }
