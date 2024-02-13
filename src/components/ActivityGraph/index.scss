@@ -7,6 +7,26 @@
   .tick line {
     display: none;
   }
+  &__title {
+    color: #20253a;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+  }
+  &__legend {
+    &--weight {
+      color: black;
+    }
+    &--calories {
+      color: red;
+    }
+    &--text {
+      color: #74798c;
+      font-size: 0.75rem;
+    }
+  }
   &__bars:hover {
     background-color: black;
   }
@@ -21,5 +41,16 @@
     line:last-of-type {
       display: none;
     }
+  }
+  &__xscale text,
+  &__yscale text {
+    color: #74798c;
+    font-size: 14px;
+  }
+  &__xscale {
+    margin-top: 16px;
+  }
+  &__yscale {
+    margin-left: 45px;
   }
 }

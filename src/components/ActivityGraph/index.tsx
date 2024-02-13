@@ -1,13 +1,15 @@
-import { Activity } from 'utils/types'
+import { Activity, Dimensions } from 'utils/types'
 import './index.scss'
 import * as d3 from 'd3'
 import { useEffect, useRef } from 'react'
+import { downScale } from 'utils/helpers'
 
 type Props = {
   content: Activity
+  dimensions: Dimensions
 }
 
-export default function ActivityGraph({ content }: Props) {
+export default function ActivityGraph({ content, dimensions }: Props) {
   const getRange = (range: number[]): number[] => {
     const result: number[] = []
     for (let i = range[0]; i <= range[1]; i++) {
@@ -15,26 +17,20 @@ export default function ActivityGraph({ content }: Props) {
     }
     return result
   }
-  const weightMinMax: number[] = d3.extent(
-    content.sessions.map((s) => s.kilogram),
-  )
+  const weightMinMax: any[] = d3.extent(content.sessions.map((s) => s.kilogram))
   // weightMinMax = [76, 81]
-  const caloriesMinMax: number[] = d3.extent(
+  const caloriesMinMax: any[] = d3.extent(
     content.sessions.map((s) => s.calories),
   )
   const weightTicks =
-    d3.max(content.sessions.map((s) => s.kilogram)) -
-    d3.min(content.sessions.map((s) => s.kilogram))
+    d3.max(content.sessions.map((s) => s.kilogram as any)) -
+    d3.min(content.sessions.map((s) => s.kilogram as any))
   // weightTicks = 5
   const weightRange = getRange(weightMinMax)
   // weightRange = [76, 77, 78, 79, 80, 81]
-  const width = 835,
-    height = 320,
-    marginTop = 112,
-    marginRight = 90,
-    marginBottom = 62,
-    marginLeft = 43,
-    strokeWidth = 7,
+  const { width, height, marginTop, marginRight, marginBottom, marginLeft } =
+    dimensions
+  const strokeWidth = 7,
     barOffset = 7,
     gx = useRef<any>(),
     gy = useRef<any>()
@@ -75,16 +71,59 @@ export default function ActivityGraph({ content }: Props) {
             <rect x={0} y={0} width={width} height={height - marginBottom} />
           </clipPath>
         </defs>
+        <text
+          className="activity__title"
+          transform={`translate(${downScale(24)},${downScale(32)})`}
+        >
+          Activité quotidienne
+        </text>
+        <g
+          className="activity__legend"
+          transform={`translate(${downScale(532)},${downScale(28)})`}
+        >
+          <g>
+            <circle
+              className="activity__legend--weight"
+              cx="0"
+              cy="0"
+              r="4"
+              fill="currentColor"
+            />
+            <text
+              className="activity__legend--text"
+              transform="translate(8,4)"
+              fill="currentColor"
+              fontWeight="600"
+            >
+              Poids (kg)
+            </text>
+          </g>
+          <g transform={`translate(${downScale(110)},0)`}>
+            <circle
+              className="activity__legend--calories"
+              cx="0"
+              cy="0"
+              r="4"
+              fill="currentColor"
+            />
+            <text
+              className="activity__legend--text"
+              transform="translate(8,4)"
+              fill="currentColor"
+              fontWeight="600"
+            >
+              Calories brûlées (kCal)
+            </text>
+          </g>
+        </g>
         <g
           ref={gx}
-          transform={`translate(0,${height - marginBottom})`}
+          transform={`translate(0,${height - marginBottom + downScale(16)})`}
           className="activity__xscale"
-          // key="activity__xscale"
         />
         <g
           className="activity__yticks"
           transform={`translate(0,${height - marginBottom})`}
-          // key="activity__yticks"
         >
           <line
             x1={marginLeft - strokeWidth - barOffset / 2}
@@ -110,7 +149,7 @@ export default function ActivityGraph({ content }: Props) {
         </g>
         <g
           ref={gy}
-          transform={`translate(${width - marginRight + barOffset},0)`}
+          transform={`translate(${width - marginRight + downScale(45)},0)`}
           className="activity__yscale"
           key="activity__yscale"
         />
