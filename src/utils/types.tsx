@@ -46,3 +46,12 @@ export type Performance = {
     kind: number
   }[]
 }
+
+export type Dimensions = {
+  width: number
+  height: number
+  marginTop: number
+  marginRight: number
+  marginBottom: number
+  marginLeft: number
+}
