@@ -215,6 +215,7 @@ export default function ActivityGraph({ content, dimensions }: Props) {
               onMouseOver={(e) => mouseOver({ e, d })}
               onMouseMove={(e) => mouseMove(e)}
               onMouseLeave={(e) => mouseLeave(e)}
+              key={`activity__bars-${i}`}
             >
               <rect
                 className="activity__bars--background"
