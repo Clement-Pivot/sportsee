@@ -2,7 +2,7 @@ import { Activity, Dimensions } from 'utils/types'
 import './index.scss'
 import * as d3 from 'd3'
 import { useEffect, useRef } from 'react'
-import { downScale } from 'utils/helpers'
+import { downScale, getRange } from 'utils/helpers'
 
 type Props = {
   content: Activity
@@ -11,17 +11,10 @@ type Props = {
 
 type MouseOverProps = {
   d: { kilogram: number; calories: number }
-  e: Event
+  i: number
 }
 
 export default function ActivityGraph({ content, dimensions }: Props) {
-  const getRange = (range: number[]): number[] => {
-    const result: number[] = []
-    for (let i = range[0]; i <= range[1]; i++) {
-      result.push(i)
-    }
-    return result
-  }
   const weightMinMax: any[] = d3.extent(content.sessions.map((s) => s.kilogram))
   // weightMinMax = [76, 81]
   const caloriesMinMax: any[] = d3.extent(
@@ -37,9 +30,12 @@ export default function ActivityGraph({ content, dimensions }: Props) {
     dimensions
   const strokeWidth = 7,
     barOffset = 7,
-    gx = useRef<any>(),
-    gy = useRef<any>()
-
+    gx = useRef<SVGGElement | any>(null),
+    gy = useRef<SVGGElement | any>(null),
+    tooltipDiv = useRef<HTMLDivElement>(null),
+    tooltipWeight = useRef<HTMLSpanElement>(null),
+    tooltipCalories = useRef<HTMLSpanElement>(null),
+    barsRefs = useRef<SVGGElement[]>([])
   // Declare the x (horizontal position) scale with dates from sessions.
   const x = d3.scaleLinear(
     [1, content.sessions.length],
@@ -68,51 +64,34 @@ export default function ActivityGraph({ content, dimensions }: Props) {
     [gy, weightYscale, weightTicks],
   )
 
-  function mouseOver({ e, d }: MouseOverProps): void {
-    const tooltip = document.getElementById('activity__tooltip')
-    const weight = document.getElementById('activity__tooltip--weight')
-    const calories = document.getElementById('activity__tooltip--calories')
-    const rect = e?.target?.parentNode?.getElementsByClassName(
+  function mouseOver({ i, d }: MouseOverProps): void {
+    const rect = barsRefs.current[i].getElementsByClassName(
       'activity__bars--background',
-    )[0]
-    if (rect) {
-      rect.style.opacity = 1
-    }
-    if (tooltip && tooltip?.style && weight && calories) {
-      tooltip.style.display = 'flex'
-      weight.textContent = `${d.kilogram}kg`
-      calories.textContent = `${d.calories}Kcal`
-    } else {
-      throw new Error('No activity tooltip found !!!')
-    }
+    )[0] as SVGRectElement
+    rect.style.opacity = '1'
+    tooltipDiv!.current!.style.display = 'flex'
+    tooltipWeight!.current!.textContent = `${d.kilogram}kg`
+    tooltipCalories!.current!.textContent = `${d.calories}Kcal`
   }
 
   function mouseMove(e: MouseEvent) {
-    const tooltip = document.getElementById('activity__tooltip')
-    if (tooltip && tooltip?.style) {
-      tooltip.style.left = `${e.pageX + 10}px`
-      tooltip.style.top = `${e.pageY - 10}px`
-    }
+    tooltipDiv!.current!.style.left = `${e.pageX + 10}px`
+    tooltipDiv!.current!.style.top = `${e.pageY - 10}px`
   }
 
-  function mouseLeave(e: MouseEvent) {
-    const tooltip = document.getElementById('activity__tooltip')
-    const rect = e?.target?.parentNode?.getElementsByClassName(
+  function mouseLeave(i: number) {
+    const rect = barsRefs.current[i].getElementsByClassName(
       'activity__bars--background',
-    )[0]
-    if (rect) {
-      rect.style.opacity = 0
-    }
-    if (tooltip && tooltip?.style) {
-      tooltip.style.display = 'none'
-    }
+    )[0] as SVGRectElement
+    rect.style.opacity = '0'
+    tooltipDiv!.current!.style.display = 'none'
   }
 
   return (
     <>
-      <div id="activity__tooltip">
-        <span id="activity__tooltip--weight"></span>
-        <span id="activity__tooltip--calories"></span>
+      <div id="activity__tooltip" ref={tooltipDiv}>
+        <span id="activity__tooltip--weight" ref={tooltipWeight}></span>
+        <span id="activity__tooltip--calories" ref={tooltipCalories}></span>
       </div>
       <svg className="activity" width={width} height={height}>
         <defs>
@@ -211,10 +190,11 @@ export default function ActivityGraph({ content, dimensions }: Props) {
         >
           {content.sessions.map((d, i) => (
             <g
+              ref={(e) => (barsRefs.current[i] = e as SVGGElement)}
               className="activity__bars--group"
-              onMouseOver={(e) => mouseOver({ e, d })}
-              onMouseMove={(e) => mouseMove(e)}
-              onMouseLeave={(e) => mouseLeave(e)}
+              onMouseOver={() => mouseOver({ i, d })}
+              onMouseMove={(e) => mouseMove(e as any)}
+              onMouseLeave={() => mouseLeave(i)}
               key={`activity__bars-${i}`}
             >
               <rect
