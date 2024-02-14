@@ -9,6 +9,11 @@ type Props = {
   dimensions: Dimensions
 }
 
+type MouseOverProps = {
+  d: { kilogram: number; calories: number }
+  e: Event
+}
+
 export default function ActivityGraph({ content, dimensions }: Props) {
   const getRange = (range: number[]): number[] => {
     const result: number[] = []
@@ -63,8 +68,52 @@ export default function ActivityGraph({ content, dimensions }: Props) {
     [gy, weightYscale, weightTicks],
   )
 
+  function mouseOver({ e, d }: MouseOverProps): void {
+    const tooltip = document.getElementById('activity__tooltip')
+    const weight = document.getElementById('activity__tooltip--weight')
+    const calories = document.getElementById('activity__tooltip--calories')
+    const rect = e?.target?.parentNode?.getElementsByClassName(
+      'activity__bars--background',
+    )[0]
+    if (rect) {
+      rect.style.opacity = 1
+    }
+    if (tooltip && tooltip?.style && weight && calories) {
+      tooltip.style.display = 'flex'
+      weight.textContent = `${d.kilogram}kg`
+      calories.textContent = `${d.calories}Kcal`
+    } else {
+      throw new Error('No activity tooltip found !!!')
+    }
+  }
+
+  function mouseMove(e: MouseEvent) {
+    const tooltip = document.getElementById('activity__tooltip')
+    if (tooltip && tooltip?.style) {
+      tooltip.style.left = `${e.pageX + 10}px`
+      tooltip.style.top = `${e.pageY - 10}px`
+    }
+  }
+
+  function mouseLeave(e: MouseEvent) {
+    const tooltip = document.getElementById('activity__tooltip')
+    const rect = e?.target?.parentNode?.getElementsByClassName(
+      'activity__bars--background',
+    )[0]
+    if (rect) {
+      rect.style.opacity = 0
+    }
+    if (tooltip && tooltip?.style) {
+      tooltip.style.display = 'none'
+    }
+  }
+
   return (
     <>
+      <div id="activity__tooltip">
+        <span id="activity__tooltip--weight"></span>
+        <span id="activity__tooltip--calories"></span>
+      </div>
       <svg className="activity" width={width} height={height}>
         <defs>
           <clipPath id="cut-off-bottom">
@@ -161,7 +210,21 @@ export default function ActivityGraph({ content, dimensions }: Props) {
           key="activity__bars"
         >
           {content.sessions.map((d, i) => (
-            <>
+            <g
+              className="activity__bars--group"
+              onMouseOver={(e) => mouseOver({ e, d })}
+              onMouseMove={(e) => mouseMove(e)}
+              onMouseLeave={(e) => mouseLeave(e)}
+            >
+              <rect
+                className="activity__bars--background"
+                x={x(i + 1) - barOffset * 3}
+                y={marginTop - barOffset}
+                height={height - marginBottom - marginTop + barOffset}
+                width={x(1)}
+                stroke="none"
+                key={`activity__bars-background-${i}`}
+              />
               <line
                 key={`activity__weightbar-line-${i}`}
                 className="activity__weightbar"
@@ -196,7 +259,7 @@ export default function ActivityGraph({ content, dimensions }: Props) {
                 strokeWidth={strokeWidth - 1}
                 clipPath="url(#cut-off-bottom)"
               />
-            </>
+            </g>
           ))}
         </g>
       </svg>

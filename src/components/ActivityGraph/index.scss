@@ -27,8 +27,9 @@
       font-size: 0.75rem;
     }
   }
-  &__bars:hover {
-    background-color: black;
+  &__bars--background {
+    color: rgba(196, 196, 196, 0.5);
+    opacity: 0;
   }
   &__weightbar {
     color: black;
@@ -52,5 +53,22 @@
   }
   &__yscale {
     margin-left: 45px;
+  }
+}
+
+#activity__tooltip {
+  position: absolute;
+  width: 50px;
+  height: 70px;
+  font-size: 10px;
+  background-color: #e60000;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+  &--weight {
+    margin: auto;
+  }
+  &--calories {
+    margin: auto;
   }
 }
