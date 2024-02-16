@@ -105,9 +105,10 @@ export default function ActivityGraph({ content, dimensions }: Props) {
         >
           Activité quotidienne
         </text>
+        {/* ------------------------Legend------------------------ */}
         <g
           className="activity__legend"
-          transform={`translate(${downScale(532)},${downScale(28)})`}
+          transform={`translate(${downScale(500)},${downScale(28)})`}
         >
           <g>
             <circle
@@ -144,6 +145,7 @@ export default function ActivityGraph({ content, dimensions }: Props) {
             </text>
           </g>
         </g>
+        {/* -----------------------Scales-------------------------- */}
         <g
           ref={gx}
           transform={`translate(0,${height - marginBottom + downScale(16)})`}
@@ -181,6 +183,7 @@ export default function ActivityGraph({ content, dimensions }: Props) {
           className="activity__yscale"
           key="activity__yscale"
         />
+        {/* --------------------Data---------------------- */}
         <g
           fill="currentColor"
           stroke="currentColor"
@@ -202,7 +205,7 @@ export default function ActivityGraph({ content, dimensions }: Props) {
                 x={x(i + 1) - barOffset * 3}
                 y={marginTop - barOffset}
                 height={height - marginBottom - marginTop + barOffset}
-                width={x(1)}
+                width={downScale(56)}
                 stroke="none"
                 key={`activity__bars-background-${i}`}
               />
