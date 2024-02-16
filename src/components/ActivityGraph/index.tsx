@@ -18,18 +18,18 @@ export default function ActivityGraph({ content, dimensions }: Props) {
   const weightMinMax: any[] = d3.extent(content.sessions.map((s) => s.kilogram))
   weightMinMax[0] = weightMinMax[0] - 1
   weightMinMax[1] = weightMinMax[1] + 1
-  // weightMinMax = [76, 81]
+  const weightTicks = weightMinMax[1] - weightMinMax[0]
+  const weightRange = getRange(weightMinMax)
+
   const caloriesMinMax: any[] = d3.extent(
     content.sessions.map((s) => s.calories),
   )
   caloriesMinMax[0] = caloriesMinMax[0] - 100
   caloriesMinMax[1] = caloriesMinMax[1] + 100
-  const weightTicks = weightMinMax[1] - weightMinMax[0]
-  // weightTicks = 5
-  const weightRange = getRange(weightMinMax)
-  // weightRange = [76, 77, 78, 79, 80, 81]
+
   const { width, height, marginTop, marginRight, marginBottom, marginLeft } =
     dimensions
+
   const strokeWidth = 7,
     barOffset = 7,
     gx = useRef<SVGGElement | any>(null),
@@ -38,17 +38,15 @@ export default function ActivityGraph({ content, dimensions }: Props) {
     tooltipWeight = useRef<HTMLSpanElement>(null),
     tooltipCalories = useRef<HTMLSpanElement>(null),
     barsRefs = useRef<SVGGElement[]>([])
-  // Declare the x (horizontal position) scale with dates from sessions.
+
   const x = d3.scaleLinear(
     [1, content.sessions.length],
     [marginLeft, width - marginRight],
   )
-  // Declare the y (vertical position) scale from weight.
   const weightYscale = d3.scaleLinear(weightMinMax, [
     height - marginBottom,
     marginTop,
   ])
-
   const caloriesYscale = d3.scaleLinear(caloriesMinMax, [
     height - marginBottom,
     marginTop,
