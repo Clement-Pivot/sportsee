@@ -101,14 +101,14 @@ export default function ActivityGraph({ content, dimensions }: Props) {
         </defs>
         <text
           className="activity__title"
-          transform={`translate(${downScale(24)},${downScale(32)})`}
+          transform={`translate(${downScale(24)},${downScale(40)})`}
         >
           Activité quotidienne
         </text>
         {/* ------------------------Legend------------------------ */}
         <g
           className="activity__legend"
-          transform={`translate(${downScale(500)},${downScale(28)})`}
+          transform={`translate(${downScale(500)},${downScale(32)})`}
         >
           <g>
             <circle
@@ -148,7 +148,7 @@ export default function ActivityGraph({ content, dimensions }: Props) {
         {/* -----------------------Scales-------------------------- */}
         <g
           ref={gx}
-          transform={`translate(0,${height - marginBottom + downScale(16)})`}
+          transform={`translate(0,${height - marginBottom + downScale(15)})`}
           className="activity__xscale"
         />
         <g
@@ -179,7 +179,7 @@ export default function ActivityGraph({ content, dimensions }: Props) {
         </g>
         <g
           ref={gy}
-          transform={`translate(${width - marginRight + downScale(45)},0)`}
+          transform={`translate(${width - marginRight + downScale(30)},0)`}
           className="activity__yscale"
           key="activity__yscale"
         />
