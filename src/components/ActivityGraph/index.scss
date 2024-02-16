@@ -1,6 +1,7 @@
 @import 'src/utils/variables.scss';
 
 .activity {
+  grid-area: activity;
   background-color: #fbfbfb;
   border-radius: 5px;
   .domain,
