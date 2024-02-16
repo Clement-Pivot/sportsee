@@ -1,0 +1,18 @@
+.sessions {
+  position: relative;
+  grid-area: sessions;
+  background-color: red;
+  color: white;
+  border-radius: 5px;
+  width: max-content;
+  height: max-content;
+  //   overflow: hidden;
+  font-size: 15px;
+  &__title {
+    color: white;
+    opacity: 0.5;
+  }
+  &__weekend {
+    color: rgba(0, 0, 0, 0.1);
+  }
+}
