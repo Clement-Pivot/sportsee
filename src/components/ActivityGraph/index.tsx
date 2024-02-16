@@ -53,8 +53,11 @@ export default function ActivityGraph({ content, dimensions }: Props) {
   ])
 
   useEffect(
-    () => void d3.select(gx.current).call(d3.axisBottom(x).ticks(weightTicks)),
-    [gx, x, weightTicks],
+    () =>
+      void d3
+        .select(gx.current)
+        .call(d3.axisBottom(x).ticks(content.sessions.length)),
+    [gx, x, content.sessions.length],
   )
   useEffect(
     () =>
