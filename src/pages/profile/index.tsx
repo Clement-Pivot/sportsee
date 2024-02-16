@@ -1,5 +1,5 @@
 import './index.scss'
-import Header from 'components/Header'
+import Header from 'layouts/Header'
 import { useEffect, useState } from 'react'
 import { useApi } from 'utils/hooks'
 import { User, Activity, Dimensions } from 'utils/types'

@@ -1,5 +1,5 @@
 import './index.scss'
-import Logo from 'components/Logo'
+import Logo from 'layouts/Logo'
 
 export default function Navbar(): JSX.Element {
   return (
