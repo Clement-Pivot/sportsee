@@ -16,13 +16,15 @@ type MouseOverProps = {
 
 export default function ActivityGraph({ content, dimensions }: Props) {
   const weightMinMax: any[] = d3.extent(content.sessions.map((s) => s.kilogram))
+  weightMinMax[0] = weightMinMax[0] - 1
+  weightMinMax[1] = weightMinMax[1] + 1
   // weightMinMax = [76, 81]
   const caloriesMinMax: any[] = d3.extent(
     content.sessions.map((s) => s.calories),
   )
-  const weightTicks =
-    d3.max(content.sessions.map((s) => s.kilogram as any)) -
-    d3.min(content.sessions.map((s) => s.kilogram as any))
+  caloriesMinMax[0] = caloriesMinMax[0] - 100
+  caloriesMinMax[1] = caloriesMinMax[1] + 100
+  const weightTicks = weightMinMax[1] - weightMinMax[0]
   // weightTicks = 5
   const weightRange = getRange(weightMinMax)
   // weightRange = [76, 77, 78, 79, 80, 81]
