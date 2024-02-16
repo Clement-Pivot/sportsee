@@ -5,12 +5,14 @@ import { useApi } from 'utils/hooks'
 import { User, Activity, Dimensions } from 'utils/types'
 import { downScale } from 'utils/helpers'
 import ActivityGraph from 'components/ActivityGraph'
+import { useParams } from 'react-router-dom'
 
 export default function Profile(): JSX.Element {
+  const { id } = useParams()
   const [user, setUser] = useState<User>()
   const [activity, setActivity] = useState<Activity>()
-  const userApi = useApi('/user/12')
-  const activityApi = useApi('/user/12/activity')
+  const userApi = useApi(`/user/${id}`)
+  const activityApi = useApi(`/user/${id}/activity`)
   const activityDimensions: Dimensions = {
     width: downScale(835),
     height: downScale(320),

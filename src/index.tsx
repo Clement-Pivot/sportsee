@@ -13,7 +13,7 @@ root.render(
       <Navbar />
       <Leftbar />
       <Routes>
-        <Route path="/" element={<Profile />} />
+        <Route path="/:id" element={<Profile />} />
       </Routes>
     </Router>
   </React.StrictMode>,
