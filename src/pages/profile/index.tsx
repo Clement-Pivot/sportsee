@@ -24,6 +24,14 @@ export default function Profile(): JSX.Element {
     marginBottom: downScale(62),
     marginLeft: downScale(43),
   }
+  const averageSessionsDimensions: Dimensions = {
+    width: downScale(258),
+    height: downScale(263),
+    marginTop: downScale(70),
+    marginRight: downScale(0),
+    marginBottom: downScale(20),
+    marginLeft: downScale(0),
+  }
 
   useEffect(() => {
     if (userApi) {
@@ -49,7 +57,12 @@ export default function Profile(): JSX.Element {
       {activity && (
         <ActivityGraph content={activity} dimensions={activityDimensions} />
       )}
-      {averageSessions && <SessionLengthGraph content={averageSessions} />}
+      {averageSessions && (
+        <SessionLengthGraph
+          content={averageSessions}
+          dimensions={averageSessionsDimensions}
+        />
+      )}
     </main>
   )
 }
