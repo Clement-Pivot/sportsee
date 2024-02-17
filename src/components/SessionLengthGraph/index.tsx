@@ -32,7 +32,7 @@ export default function SessionLengthGraph({ content, dimensions }: Props) {
     [marginLeft, width - marginRight - marginLeft],
   )
   const y = d3.scaleLinear(sessionsMinMax as any, [
-    height - marginBottom - marginTop,
+    height - marginBottom - marginTop * 2,
     marginTop,
   ])
 
@@ -106,7 +106,7 @@ export default function SessionLengthGraph({ content, dimensions }: Props) {
         />
         <g
           className="sessions__line"
-          transform="scale(1.19,1), translate(-15,10)"
+          transform={`scale(1.19,1), translate(-15,${marginTop + 10})`}
         >
           <path
             d={line(sessions) || ''}
