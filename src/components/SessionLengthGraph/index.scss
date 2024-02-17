@@ -16,6 +16,12 @@
     position: absolute;
     z-index: 1;
     display: none;
+    background-color: white;
+    width: 39px;
+    height: 25px;
+    font-size: 8px;
+    justify-content: center;
+    align-items: center;
   }
   &__scale {
     .domain {
