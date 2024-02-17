@@ -3,15 +3,15 @@ import './index.scss'
 import * as d3 from 'd3'
 import { useEffect, useRef } from 'react'
 import { downScale, getRange } from 'utils/helpers'
+import Tooltip from 'components/Tooltip'
 
 type Props = {
   content: Activity
   dimensions: Dimensions
 }
 
-type MouseOverProps = {
+type UpdateTooltipProps = {
   d: { kilogram: number; calories: number }
-  i: number
 }
 
 export default function ActivityGraph({ content, dimensions }: Props) {
@@ -52,6 +52,13 @@ export default function ActivityGraph({ content, dimensions }: Props) {
     marginTop,
   ])
 
+  const tooltipContent = (
+    <div id="activity__tooltip" ref={tooltipDiv}>
+      <span id="activity__tooltip--weight" ref={tooltipWeight}></span>
+      <span id="activity__tooltip--calories" ref={tooltipCalories}></span>
+    </div>
+  )
+
   useEffect(
     () =>
       void d3
@@ -67,35 +74,14 @@ export default function ActivityGraph({ content, dimensions }: Props) {
     [gy, weightYscale, weightTicks],
   )
 
-  function mouseOver({ i, d }: MouseOverProps): void {
-    const rect = barsRefs.current[i].getElementsByClassName(
-      'activity__bars--background',
-    )[0] as SVGRectElement
-    rect.style.opacity = '1'
-    tooltipDiv!.current!.style.display = 'flex'
+  function updateTooltip({ d }: UpdateTooltipProps) {
     tooltipWeight!.current!.textContent = `${d.kilogram}kg`
     tooltipCalories!.current!.textContent = `${d.calories}Kcal`
   }
 
-  function mouseMove(e: MouseEvent) {
-    tooltipDiv!.current!.style.left = `${e.pageX + 10}px`
-    tooltipDiv!.current!.style.top = `${e.pageY - 10}px`
-  }
-
-  function mouseLeave(i: number) {
-    const rect = barsRefs.current[i].getElementsByClassName(
-      'activity__bars--background',
-    )[0] as SVGRectElement
-    rect.style.opacity = '0'
-    tooltipDiv!.current!.style.display = 'none'
-  }
-
   return (
     <>
-      <div id="activity__tooltip" ref={tooltipDiv}>
-        <span id="activity__tooltip--weight" ref={tooltipWeight}></span>
-        <span id="activity__tooltip--calories" ref={tooltipCalories}></span>
-      </div>
+      <Tooltip content={tooltipContent} subscribers={barsRefs} />
       <svg className="activity" width={width} height={height}>
         <defs>
           <clipPath id="cut-off-bottom">
@@ -195,15 +181,10 @@ export default function ActivityGraph({ content, dimensions }: Props) {
           key="activity__bars"
         >
           {content.sessions.map((d, i) => (
-            <g
-              ref={(e) => (barsRefs.current[i] = e as SVGGElement)}
-              className="activity__bars--group"
-              onMouseOver={() => mouseOver({ i, d })}
-              onMouseMove={(e) => mouseMove(e as any)}
-              onMouseLeave={() => mouseLeave(i)}
-              key={`activity__bars-${i}`}
-            >
+            <g className="activity__bars--group" key={`activity__bars-${i}`}>
               <rect
+                ref={(e) => (barsRefs.current[i] = e as SVGRectElement)}
+                onMouseOver={() => updateTooltip({ d })}
                 className="activity__bars--background"
                 x={x(i + 1) - barOffset * 3}
                 y={marginTop - barOffset}
