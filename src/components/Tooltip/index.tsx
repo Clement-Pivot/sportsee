@@ -39,7 +39,7 @@ export default function Tooltip({ content, subscribers }: Props) {
       sub.addEventListener('mousemove', (e) => mouseMove(e as any))
       sub.addEventListener('mouseleave', () => mouseLeave(sub))
     })
-  }, [])
+  }, [content, subscribers])
 
   return <>{content}</>
 }
