@@ -4,8 +4,6 @@
   background-color: red;
   color: white;
   border-radius: 5px;
-  width: max-content;
-  height: max-content;
   font-size: 15px;
   &__title {
     color: white;
@@ -25,6 +23,16 @@
     }
     .tick line {
       display: none;
+    }
+  }
+  &__line {
+    .dot {
+      &--wide {
+        color: rgba(255, 255, 255, 0.5);
+      }
+      &--small {
+        color: white;
+      }
     }
   }
 }
