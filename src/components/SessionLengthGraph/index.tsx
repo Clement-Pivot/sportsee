@@ -1,5 +1,5 @@
 import './index.scss'
-import { AverageSessions, Dimensions } from 'utils/types'
+import { AverageSessions, Dimensions, OneSession } from 'utils/types'
 import { downScale } from 'utils/helpers'
 import * as d3 from 'd3'
 import { useEffect, useRef } from 'react'
@@ -17,7 +17,7 @@ export default function SessionLengthGraph({ content, dimensions }: Props) {
 
   const gx = useRef<SVGGElement | any>(null),
     gy = useRef<SVGGElement | any>(null)
-  const tooltipRef = useRef(null),
+  const tooltipRef = useRef<HTMLDivElement>(null),
     dotsRef = useRef<Element[]>([])
 
   const tooltipData = (
@@ -31,7 +31,7 @@ export default function SessionLengthGraph({ content, dimensions }: Props) {
     [0, sessions.length - 1],
     [marginLeft, width - marginRight - marginLeft],
   )
-  const y = d3.scaleLinear(sessionsMinMax, [
+  const y = d3.scaleLinear(sessionsMinMax as any, [
     height - marginBottom - marginTop,
     marginTop,
   ])
@@ -60,7 +60,7 @@ export default function SessionLengthGraph({ content, dimensions }: Props) {
 
   //   line generator
   const line = d3
-    .line()
+    .line<OneSession>()
     .x((d) => x(d.day - 1))
     .y((d) => y(d.sessionLength))
     .curve(d3.curveCatmullRom.alpha(0.5))
@@ -109,7 +109,7 @@ export default function SessionLengthGraph({ content, dimensions }: Props) {
           transform="scale(1.19,1), translate(-15,10)"
         >
           <path
-            d={line(sessions)}
+            d={line(sessions) || ''}
             stroke="currentColor"
             fill="none"
             strokeWidth="1.5"
@@ -119,7 +119,7 @@ export default function SessionLengthGraph({ content, dimensions }: Props) {
             <g
               key={`session-dot-group-${s.day}`}
               ref={(e) => (dotsRef.current[s.day - 1] = e as Element)}
-              opacity={1}
+              opacity={0}
             >
               <rect
                 fill="white"
