@@ -23,12 +23,14 @@ export type Activity = {
   }[]
 }
 
+export type OneSession = {
+  day: number
+  sessionLength: number
+}
+
 export type AverageSessions = {
   userId: number
-  sessions: {
-    day: number
-    sessionLength: number
-  }[]
+  sessions: OneSession[]
 }
 
 export type Performance = {
