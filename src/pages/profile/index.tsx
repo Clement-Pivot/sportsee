@@ -27,10 +27,10 @@ export default function Profile(): JSX.Element {
   const averageSessionsDimensions: Dimensions = {
     width: downScale(258),
     height: downScale(263),
-    marginTop: downScale(70),
+    marginTop: downScale(40),
     marginRight: downScale(0),
-    marginBottom: downScale(20),
-    marginLeft: downScale(0),
+    marginBottom: downScale(35),
+    marginLeft: downScale(20),
   }
 
   useEffect(() => {
