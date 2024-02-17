@@ -6,7 +6,6 @@
   border-radius: 5px;
   width: max-content;
   height: max-content;
-  //   overflow: hidden;
   font-size: 15px;
   &__title {
     color: white;
@@ -14,5 +13,18 @@
   }
   &__weekend {
     color: rgba(0, 0, 0, 0.1);
+  }
+  &__tooltip {
+    position: absolute;
+    z-index: 1;
+    display: none;
+  }
+  &__scale {
+    .domain {
+      display: none;
+    }
+    .tick line {
+      display: none;
+    }
   }
 }
