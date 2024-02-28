@@ -1,21 +1,30 @@
 import './index.scss'
-import Header from 'layouts/Header'
 import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import { useApi } from 'utils/hooks'
-import { User, Activity, Dimensions, AverageSessions } from 'utils/types'
+import {
+  User,
+  Activity,
+  Dimensions,
+  AverageSessions,
+  Performance,
+} from 'utils/types'
 import { downScale } from 'utils/helpers'
+import Header from 'layouts/Header'
 import ActivityGraph from 'components/ActivityGraph'
 import SessionLengthGraph from 'components/SessionLengthGraph'
-import { useParams } from 'react-router-dom'
+import TypeGraph from 'components/TypeGraph'
 
 export default function Profile(): JSX.Element {
   const { id } = useParams()
   const [user, setUser] = useState<User>()
   const [activity, setActivity] = useState<Activity>()
   const [averageSessions, setAverageSessions] = useState<AverageSessions>()
+  const [performance, setPerformance] = useState<Performance>()
   const userApi = useApi(`/user/${id}`)
   const activityApi = useApi(`/user/${id}/activity`)
   const averageSessionApi = useApi(`/user/${id}/average-sessions`)
+  const performanceApi = useApi(`/user/${id}/performance`)
   const activityDimensions: Dimensions = {
     width: downScale(835),
     height: downScale(320),
@@ -51,6 +60,12 @@ export default function Profile(): JSX.Element {
     }
   }, [averageSessionApi])
 
+  useEffect(() => {
+    if (performanceApi) {
+      setPerformance(performanceApi as Performance)
+    }
+  }, [performanceApi])
+
   return (
     <main className="content">
       {user && <Header name={user.userInfos.firstName} />}
@@ -60,6 +75,12 @@ export default function Profile(): JSX.Element {
       {averageSessions && (
         <SessionLengthGraph
           content={averageSessions}
+          dimensions={averageSessionsDimensions}
+        />
+      )}
+      {performance && (
+        <TypeGraph
+          content={performance}
           dimensions={averageSessionsDimensions}
         />
       )}
