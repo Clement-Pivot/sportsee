@@ -40,6 +40,13 @@ export default function ScoreGraph({ content, dimensions }: Props) {
           fill="currentColor"
         />
       </g>
+      <circle
+        cx={dimensions.size / 2}
+        cy={dimensions.size / 2}
+        r={50}
+        fill="currentColor"
+        className="score__disc"
+      />
       <g
         className="score__value"
         transform={`translate(${dimensions.size / 2},${dimensions.size / 2 - 20})`}
