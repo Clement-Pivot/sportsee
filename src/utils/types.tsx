@@ -1,6 +1,7 @@
 export type User = {
   id: number
-  todayScore: number
+  score?: number
+  todayScore?: number
   userInfos: {
     age: number
     firstName: string
