@@ -15,6 +15,7 @@ import ActivityGraph from 'components/ActivityGraph'
 import SessionLengthGraph from 'components/SessionLengthGraph'
 import TypeGraph from 'components/TypeGraph'
 import ScoreGraph from 'components/ScoreGraph'
+import Consumption from 'components/Consumption'
 
 export default function Profile(): JSX.Element {
   const { id } = useParams()
@@ -88,6 +89,7 @@ export default function Profile(): JSX.Element {
       {user && (
         <ScoreGraph content={user} dimensions={{ size: downScale(260) }} />
       )}
+      <Consumption />
     </main>
   )
 }
