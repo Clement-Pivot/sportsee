@@ -34,8 +34,8 @@ export default function Profile(): JSX.Element {
     marginLeft: downScale(43),
   }
   const averageSessionsDimensions: Dimensions = {
-    width: downScale(258),
-    height: downScale(263),
+    width: downScale(260),
+    height: downScale(260),
     marginTop: downScale(40),
     marginRight: downScale(0),
     marginBottom: downScale(35),
@@ -81,7 +81,7 @@ export default function Profile(): JSX.Element {
       {performance && (
         <TypeGraph
           content={performance}
-          dimensions={averageSessionsDimensions}
+          dimensions={{ size: downScale(260), margin: downScale(40) }}
         />
       )}
     </main>
