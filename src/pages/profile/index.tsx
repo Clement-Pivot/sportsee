@@ -16,6 +16,10 @@ import SessionLengthGraph from 'components/SessionLengthGraph'
 import TypeGraph from 'components/TypeGraph'
 import ScoreGraph from 'components/ScoreGraph'
 import Consumption from 'components/Consumption'
+import Calories from 'assets/calories-icon.svg?react'
+import Carbs from 'assets/carbs-icon.svg?react'
+import Protein from 'assets/protein-icon.svg?react'
+import Fat from 'assets/fat-icon.svg?react'
 
 export default function Profile(): JSX.Element {
   const { id } = useParams()
@@ -89,7 +93,28 @@ export default function Profile(): JSX.Element {
       {user && (
         <ScoreGraph content={user} dimensions={{ size: downScale(260) }} />
       )}
-      <Consumption />
+      <div className="consumption">
+        <Consumption
+          Icon={Calories}
+          value={`${user?.keyData.calorieCount.toLocaleString()}kCal`}
+          type="Calories"
+        />
+        <Consumption
+          Icon={Protein}
+          value={`${user?.keyData.proteinCount.toLocaleString()}g`}
+          type="Proteines"
+        />
+        <Consumption
+          Icon={Carbs}
+          value={`${user?.keyData.carbohydrateCount.toLocaleString()}g`}
+          type="Glucides"
+        />
+        <Consumption
+          Icon={Fat}
+          value={`${user?.keyData.lipidCount.toLocaleString()}g`}
+          type="Lipides"
+        />
+      </div>
     </main>
   )
 }

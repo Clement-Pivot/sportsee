@@ -1,5 +1,18 @@
+import { FunctionComponent } from 'react'
 import './index.scss'
 
-export default function Consumption() {
-  return <div className="consumption"></div>
+type Props = {
+  Icon: FunctionComponent
+  value: string
+  type: string
+}
+
+export default function Consumption({ Icon, value, type }: Props) {
+  return (
+    <div className="consumption">
+      <Icon />
+      <div className="consumption__value">{value}</div>
+      <div className="consumption__type">{type}</div>
+    </div>
+  )
 }
