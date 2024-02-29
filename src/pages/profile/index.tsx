@@ -81,7 +81,7 @@ export default function Profile(): JSX.Element {
       {performance && (
         <TypeGraph
           content={performance}
-          dimensions={{ size: downScale(260), margin: downScale(40) }}
+          dimensions={{ size: downScale(260), margin: downScale(80) }}
         />
       )}
     </main>

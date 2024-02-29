@@ -1,8 +1,6 @@
 import './index.scss'
 import * as d3 from 'd3'
-import { useEffect, useRef } from 'react'
-import { downScale } from 'utils/helpers'
-import { Performance, Dimensions } from 'utils/types'
+import { Performance } from 'utils/types'
 
 type Props = {
   content: Performance
@@ -22,18 +20,17 @@ export default function TypeGraph({ content, dimensions }: Props) {
 
   const performanceMinMax = [0, 300]
   const angle = (Math.PI * 2) / content.data.length
-  const scaleLines = []
+  const scaleLines: Array<LineData>[] = []
   for (var i = 0; i <= 3; i++) {
-    scaleLines.push(
-      content.data.map((d) => ({ value: i > 0 ? 100 * i : 50, kind: d.kind })),
-    )
+    scaleLines.push([])
+    for (var j = 1; j <= content.data.length; j++) {
+      scaleLines[i].push({ value: i > 0 ? 100 * i : 50, kind: j })
+    }
   }
-  const legendRadius = size / 2
+  const legendRadius = (size - margin) / 1.6
   const getLegendPosition = (index: number) => {
-    return `${Math.cos((Math.PI / 6) * index) * legendRadius},${Math.sin((Math.PI / 6) * index) * legendRadius}`
+    return `${Math.cos(angle * (index - 1.5)) * legendRadius},${Math.sin(angle * (index - 1.5)) * legendRadius}`
   }
-  // console.log(content.data)
-  // console.log(getLegendPosition(3))
 
   const area = d3
     .lineRadial<LineData>()
@@ -47,13 +44,14 @@ export default function TypeGraph({ content, dimensions }: Props) {
         className="typegraph__legend"
         fill="currentColor"
       >
-        {' '}
         {content.data.map((d) => (
           <text
+            dominantBaseline="middle"
+            textAnchor="middle"
             transform={`translate(${getLegendPosition(d.kind)})`}
             key={`typegraph__legend--${d.kind}`}
           >
-            {/* {content.kind[d.kind]} */}
+            {content.kind[d.kind]}
           </text>
         ))}
       </g>
