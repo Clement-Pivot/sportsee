@@ -85,7 +85,9 @@ export default function Profile(): JSX.Element {
           dimensions={{ size: downScale(260), margin: downScale(80) }}
         />
       )}
-      {user && <ScoreGraph content={user} />}
+      {user && (
+        <ScoreGraph content={user} dimensions={{ size: downScale(260) }} />
+      )}
     </main>
   )
 }
