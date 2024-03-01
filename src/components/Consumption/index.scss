@@ -1,3 +1,25 @@
 .consumption {
   grid-area: consumption;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  &__item {
+    background-color: #fbfbfb;
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    column-gap: 10px;
+    padding: 20px;
+    align-items: center;
+  }
+  &__value {
+    font-size: 20px;
+    font-weight: 700;
+    color: #282d30;
+  }
+  &__type {
+    font-size: 14px;
+    font-weight: 500;
+    color: #74798c;
+  }
 }

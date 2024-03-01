@@ -78,40 +78,42 @@ export default function Profile(): JSX.Element {
       {activity && (
         <ActivityGraph content={activity} dimensions={activityDimensions} />
       )}
-      {averageSessions && (
-        <SessionLengthGraph
-          content={averageSessions}
-          dimensions={averageSessionsDimensions}
-        />
-      )}
-      {performance && (
-        <TypeGraph
-          content={performance}
-          dimensions={{ size: downScale(260), margin: downScale(80) }}
-        />
-      )}
-      {user && (
-        <ScoreGraph content={user} dimensions={{ size: downScale(260) }} />
-      )}
+      <div className="indicators">
+        {averageSessions && (
+          <SessionLengthGraph
+            content={averageSessions}
+            dimensions={averageSessionsDimensions}
+          />
+        )}
+        {performance && (
+          <TypeGraph
+            content={performance}
+            dimensions={{ size: downScale(260), margin: downScale(80) }}
+          />
+        )}
+        {user && (
+          <ScoreGraph content={user} dimensions={{ size: downScale(260) }} />
+        )}
+      </div>
       <div className="consumption">
         <Consumption
           Icon={Calories}
-          value={`${user?.keyData.calorieCount.toLocaleString()}kCal`}
+          value={`${user?.keyData.calorieCount.toLocaleString('en')}kCal`}
           type="Calories"
         />
         <Consumption
           Icon={Protein}
-          value={`${user?.keyData.proteinCount.toLocaleString()}g`}
+          value={`${user?.keyData.proteinCount.toLocaleString('en')}g`}
           type="Proteines"
         />
         <Consumption
           Icon={Carbs}
-          value={`${user?.keyData.carbohydrateCount.toLocaleString()}g`}
+          value={`${user?.keyData.carbohydrateCount.toLocaleString('en')}g`}
           type="Glucides"
         />
         <Consumption
           Icon={Fat}
-          value={`${user?.keyData.lipidCount.toLocaleString()}g`}
+          value={`${user?.keyData.lipidCount.toLocaleString('en')}g`}
           type="Lipides"
         />
       </div>

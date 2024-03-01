@@ -9,8 +9,16 @@
     grid-area: content;
     display: grid;
     grid-template-areas:
-      'header header header header'
-      'activity activity activity consumption'
-      'sessions type score consumption';
+      'header header'
+      'activity consumption'
+      'indicators consumption';
+    column-gap: 30px;
+    row-gap: 30px;
+    .indicators {
+      grid-area: indicators;
+      display: flex;
+      justify-content: space-between;
+      margin-top: auto;
+    }
   }
 }
