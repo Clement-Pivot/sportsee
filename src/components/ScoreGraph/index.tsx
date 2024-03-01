@@ -14,8 +14,6 @@ export default function ScoreGraph({ content, dimensions }: Props) {
   const score = content.score || content.todayScore || 0
   const arc = d3.arc().cornerRadius(10)
 
-  //   console.log(score)
-
   return (
     <svg className="score" width={dimensions.size} height={dimensions.size}>
       <g
@@ -31,8 +29,8 @@ export default function ScoreGraph({ content, dimensions }: Props) {
         <path
           d={
             arc({
-              innerRadius: 50,
-              outerRadius: 60,
+              innerRadius: 57,
+              outerRadius: 67,
               startAngle: 0,
               endAngle: -(Math.PI * 2 * score),
             }) || ''
@@ -43,13 +41,13 @@ export default function ScoreGraph({ content, dimensions }: Props) {
       <circle
         cx={dimensions.size / 2}
         cy={dimensions.size / 2}
-        r={50}
+        r={57}
         fill="currentColor"
         className="score__disc"
       />
       <g
         className="score__value"
-        transform={`translate(${dimensions.size / 2},${dimensions.size / 2 - 20})`}
+        transform={`translate(${dimensions.size / 2},${dimensions.size / 2 - 15})`}
         fill="currentColor"
         textAnchor="middle"
         dominantBaseline="middle"
@@ -64,7 +62,7 @@ export default function ScoreGraph({ content, dimensions }: Props) {
         fill="currentColor"
       >
         <text>de votre</text>
-        <text transform="translate(0,24)">objectif</text>
+        <text transform="translate(0,16)">objectif</text>
       </g>
     </svg>
   )
