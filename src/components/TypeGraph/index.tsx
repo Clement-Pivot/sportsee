@@ -29,13 +29,13 @@ export default function TypeGraph({ content, dimensions }: Props) {
   }
   const legendRadius = (size - margin) / 1.6
   const getLegendPosition = (index: number) => {
-    return `${Math.cos(angle * (index - 1.5)) * legendRadius},${Math.sin(angle * (index - 1.5)) * legendRadius}`
+    return `${-Math.cos(angle * (index - 1.5)) * legendRadius},${Math.sin(angle * (index - 1.5)) * legendRadius}`
   }
 
   const area = d3
     .lineRadial<LineData>()
     .radius((d) => (d.value * (size - margin)) / 2 / performanceMinMax[1])
-    .angle((d) => angle * d.kind)
+    .angle((d) => angle * -d.kind)
 
   return (
     <svg className="typegraph" width={size} height={size}>
