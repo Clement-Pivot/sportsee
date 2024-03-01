@@ -8,6 +8,7 @@ import {
   Dimensions,
   AverageSessions,
   Performance,
+  isPerformance,
 } from 'utils/types'
 import { downScale } from 'utils/helpers'
 import Header from 'layouts/Header'
@@ -67,7 +68,13 @@ export default function Profile(): JSX.Element {
   }, [averageSessionApi])
 
   useEffect(() => {
-    if (performanceApi) {
+    if (performanceApi && isPerformance(performanceApi)) {
+      performanceApi.kind[1] = 'Cardio'
+      performanceApi.kind[2] = 'Energie'
+      performanceApi.kind[3] = 'Endurance'
+      performanceApi.kind[4] = 'Force'
+      performanceApi.kind[5] = 'Vitesse'
+      performanceApi.kind[6] = 'Intensité'
       setPerformance(performanceApi as Performance)
     }
   }, [performanceApi])

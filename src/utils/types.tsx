@@ -53,3 +53,15 @@ export type Dimensions = {
   marginBottom: number
   marginLeft: number
 }
+
+export function isPerformance(obj: any): obj is Performance {
+  if (
+    typeof obj.userId == 'number' &&
+    typeof obj.kind == 'object' &&
+    typeof obj.data == 'object'
+  ) {
+    return true
+  } else {
+    return false
+  }
+}
