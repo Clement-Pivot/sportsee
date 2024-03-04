@@ -8,10 +8,10 @@ export default function Leftbar(): JSX.Element {
   return (
     <aside className="leftbar">
       <div className="leftbar__icons">
-        <Yoga className="leftbar__icon" />
-        <Swim className="leftbar__icon" />
-        <Bike className="leftbar__icon" />
-        <Dumbbell className="leftbar__icon" />
+        <Yoga className="leftbar__icon" width={45} />
+        <Swim className="leftbar__icon" width={45} />
+        <Bike className="leftbar__icon" width={45} />
+        <Dumbbell className="leftbar__icon" width={45} />
       </div>
       <p className="leftbar__copyright">Copyright, SportSee 2020</p>
     </aside>
