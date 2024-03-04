@@ -18,7 +18,7 @@ export type User = {
 export type Activity = {
   userId: number
   sessions: {
-    day: Date
+    day: string
     kilogram: number
     calories: number
   }[]
