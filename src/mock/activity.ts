@@ -1,5 +1,9 @@
 import { Activity } from 'utils/types'
 
+/**
+ * Activity mocked data
+ * @type {Activity}
+ */
 export const activity: Activity = {
   userId: 12,
   sessions: [
