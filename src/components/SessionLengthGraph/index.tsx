@@ -5,12 +5,27 @@ import * as d3 from 'd3'
 import { useEffect, useRef } from 'react'
 import Tooltip from 'components/Tooltip'
 
+/**
+ * Session length graph props type
+ * @typedef {Props}
+ */
 type Props = {
   content: AverageSessions
   dimensions: Dimensions
 }
 
-export default function SessionLengthGraph({ content, dimensions }: Props) {
+/**
+ * Session length graph function component
+ * @export
+ * @param {Props} param0
+ * @param {AverageSessions} param0.content
+ * @param {Dimensions} param0.dimensions
+ * @returns {JSX.Element}
+ */
+export default function SessionLengthGraph({
+  content,
+  dimensions,
+}: Props): JSX.Element {
   const { width, height, marginTop, marginRight, marginBottom, marginLeft } =
     dimensions
   const sessions = content.sessions
