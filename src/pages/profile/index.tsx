@@ -22,6 +22,11 @@ import Carbs from 'assets/carbs-icon.svg?react'
 import Protein from 'assets/protein-icon.svg?react'
 import Fat from 'assets/fat-icon.svg?react'
 
+/**
+ * Profile page function component
+ * @export
+ * @returns {JSX.Element}
+ */
 export default function Profile(): JSX.Element {
   const { id } = useParams()
   const [user, setUser] = useState<User>()
