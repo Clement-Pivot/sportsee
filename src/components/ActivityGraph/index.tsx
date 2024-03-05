@@ -14,7 +14,18 @@ type UpdateTooltipProps = {
   d: { kilogram: number; calories: number }
 }
 
-export default function ActivityGraph({ content, dimensions }: Props) {
+/**
+ * Activity chart function component
+ * @export
+ * @param {Props} param0
+ * @param {Activity} param0.content
+ * @param {Dimensions} param0.dimensions
+ * @returns {JSX.Element}
+ */
+export default function ActivityGraph({
+  content,
+  dimensions,
+}: Props): JSX.Element {
   const weightMinMax: any[] = d3.extent(content.sessions.map((s) => s.kilogram))
   weightMinMax[0] = weightMinMax[0] - 1
   weightMinMax[1] = weightMinMax[1] + 1
