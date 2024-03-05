@@ -11,7 +11,7 @@ type Props = {
 }
 
 export default function ScoreGraph({ content, dimensions }: Props) {
-  const score = content.score || content.todayScore || 0
+  const score = content.score
   const arc = d3.arc().cornerRadius(10)
 
   return (

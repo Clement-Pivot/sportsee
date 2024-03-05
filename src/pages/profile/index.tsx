@@ -69,12 +69,6 @@ export default function Profile(): JSX.Element {
 
   useEffect(() => {
     if (performanceApi && isPerformance(performanceApi)) {
-      performanceApi.kind[1] = 'Cardio'
-      performanceApi.kind[2] = 'Energie'
-      performanceApi.kind[3] = 'Endurance'
-      performanceApi.kind[4] = 'Force'
-      performanceApi.kind[5] = 'Vitesse'
-      performanceApi.kind[6] = 'Intensité'
       setPerformance(performanceApi as Performance)
     }
   }, [performanceApi])
