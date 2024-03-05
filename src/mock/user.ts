@@ -1,6 +1,6 @@
-import { User } from 'utils/types'
+import { UnsanitizedUser } from 'utils/types'
 
-export const user: User = {
+export const user: UnsanitizedUser = {
   id: 12,
   userInfos: { firstName: 'Karl', lastName: 'Dovineau', age: 31 },
   todayScore: 0.12,
