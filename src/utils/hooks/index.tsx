@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { User, Activity, AverageSessions, Performance } from 'utils/types'
 import { activity } from 'mock/activity'
@@ -35,21 +36,10 @@ export function useApi(
     User | Activity | AverageSessions | Performance
   >()
   useEffect(() => {
-    fetch(`http://127.0.0.1:3000${url}`)
-      .then((res) => {
-        if (res.ok) {
-          try {
-            return res.json()
-          } catch (e: any) {
-            throw new Error(e.message)
-          }
-        } else {
-          return new Error('Problème acces API')
-        }
-      })
-      .then((data) => {
-        setResponse(data.data)
-      })
+    axios
+      .get(`http://127.0.0.1:3000${url}`)
+      .then((response) => setResponse(response.data.data))
+      .catch((error) => console.error(error))
   }, [url])
   return response
 }
