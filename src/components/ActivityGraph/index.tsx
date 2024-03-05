@@ -19,7 +19,7 @@ export default function ActivityGraph({ content, dimensions }: Props) {
   weightMinMax[0] = weightMinMax[0] - 1
   weightMinMax[1] = weightMinMax[1] + 1
   const weightTicks = weightMinMax[1] - weightMinMax[0]
-  const weightRange = getRange(weightMinMax)
+  const weightRange = getRange(weightMinMax[0], weightMinMax[1])
 
   const caloriesMinMax: any[] = d3.extent(
     content.sessions.map((s) => s.calories),

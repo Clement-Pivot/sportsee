@@ -6,9 +6,9 @@ export function downScale(
   return (length * width) / originalLength
 }
 
-export function getRange(range: number[]): number[] {
+export function getRange(min: number, max: number, step: number = 1): number[] {
   const result: number[] = []
-  for (let i = range[0]; i <= range[1]; i++) {
+  for (let i = min; i <= max; i += step) {
     result.push(i)
   }
   return result
