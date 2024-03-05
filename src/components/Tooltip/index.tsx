@@ -1,6 +1,10 @@
 import './index.scss'
 import { useEffect } from 'react'
 
+/**
+ * Tooltip props type
+ * @typedef {Props}
+ */
 type Props = {
   content: {
     key: any
@@ -17,7 +21,15 @@ type Props = {
   }
 }
 
-export default function Tooltip({ content, subscribers }: Props) {
+/**
+ * Tooltip function component
+ * @export
+ * @param {Props} param0
+ * @param {{ key: any; props: { children: Element; }; ref?: { current: HTMLElement; }; type: string; }} param0.content
+ * @param {{ current: {}; }} param0.subscribers
+ * @returns {JSX.Element}
+ */
+export default function Tooltip({ content, subscribers }: Props): JSX.Element {
   useEffect(() => {
     function mouseOver(sub: any): void {
       sub.style.opacity = '1'
