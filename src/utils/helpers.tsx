@@ -1,7 +1,9 @@
-export function downScale(length: number): number {
+export function downScale(
+  length: number,
+  originalLength: number = 1440,
+): number {
   const width = document.body.getBoundingClientRect().width
-  const originalWidth = 1440
-  return (length * width) / originalWidth
+  return (length * width) / originalLength
 }
 
 export function getRange(range: number[]): number[] {
