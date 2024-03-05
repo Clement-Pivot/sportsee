@@ -65,3 +65,16 @@ export function isPerformance(obj: any): obj is Performance {
     return false
   }
 }
+
+export function isUser(obj: any): obj is User {
+  if (
+    typeof obj.id == 'number' &&
+    (typeof obj.score == 'number' || typeof obj.todayScore == 'number') &&
+    typeof obj.userInfos == 'object' &&
+    typeof obj.keyData == 'object'
+  ) {
+    return true
+  } else {
+    return false
+  }
+}
