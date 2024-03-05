@@ -13,6 +13,11 @@ import { average } from 'mock/average'
 import { performance } from 'mock/performance'
 import { user } from 'mock/user'
 
+/**
+ * Sanitize API
+ * @param {*} object - an API response
+ * @returns {(User | Activity | AverageSessions | Performance)}
+ */
 function sanitizeApi(
   object: any,
 ): User | Activity | AverageSessions | Performance {
