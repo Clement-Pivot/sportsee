@@ -1,27 +1,51 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { User, Activity, AverageSessions, Performance } from 'utils/types'
+import {
+  User,
+  Activity,
+  AverageSessions,
+  Performance,
+  isPerformance,
+  isUser,
+} from 'utils/types'
 import { activity } from 'mock/activity'
 import { average } from 'mock/average'
 import { performance } from 'mock/performance'
 import { user } from 'mock/user'
+
+function sanitizeApi(
+  object: any,
+): User | Activity | AverageSessions | Performance {
+  if (isUser(object) && object.todayScore) {
+    object.score = object.todayScore
+  }
+  if (isPerformance(object)) {
+    object.kind[1] = 'Cardio'
+    object.kind[2] = 'Energie'
+    object.kind[3] = 'Endurance'
+    object.kind[4] = 'Force'
+    object.kind[5] = 'Vitesse'
+    object.kind[6] = 'Intensité'
+  }
+  return object
+}
 
 export function useMock(
   url: string,
 ): User | Activity | AverageSessions | Performance {
   const typeOfDataURLIndex = 3
 
-  if (url.split('/').length <= typeOfDataURLIndex) return user
+  if (url.split('/').length <= typeOfDataURLIndex) return sanitizeApi(user)
 
   const wanted = url.split('/')[typeOfDataURLIndex]
 
   switch (wanted) {
     case 'user':
-      return user
+      return sanitizeApi(user)
     case 'average-sessions':
       return average
     case 'performance':
-      return performance
+      return sanitizeApi(performance)
     case 'activity':
       return activity
     default:
@@ -38,7 +62,10 @@ export function useApi(
   useEffect(() => {
     axios
       .get(`http://127.0.0.1:3000${url}`)
-      .then((response) => setResponse(response.data.data))
+      .then((response) => {
+        const data = sanitizeApi(response.data.data)
+        setResponse(data)
+      })
       .catch((error) => console.error(error))
   }, [url])
   return response
