@@ -4,6 +4,11 @@ import Swim from '/src/assets/Swim.svg?react'
 import Bike from '/src/assets/Bike.svg?react'
 import Dumbbell from '/src/assets/Dumbbell.svg?react'
 
+/**
+ * Left bar function component
+ * @export
+ * @returns {JSX.Element}
+ */
 export default function Leftbar(): JSX.Element {
   return (
     <aside className="leftbar">
