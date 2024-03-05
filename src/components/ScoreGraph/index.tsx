@@ -3,6 +3,10 @@ import './index.scss'
 import { downScale } from 'utils/helpers'
 import * as d3 from 'd3'
 
+/**
+ * Score graph prop type
+ * @typedef {Props}
+ */
 type Props = {
   content: User
   dimensions: {
@@ -10,7 +14,18 @@ type Props = {
   }
 }
 
-export default function ScoreGraph({ content, dimensions }: Props) {
+/**
+ * Score graph function component
+ * @export
+ * @param {Props} param0
+ * @param {User} param0.content
+ * @param {{ size: number; }} param0.dimensions
+ * @returns {JSX.Element}
+ */
+export default function ScoreGraph({
+  content,
+  dimensions,
+}: Props): JSX.Element {
   const score = content.score
   const arc = d3.arc().cornerRadius(10)
 
