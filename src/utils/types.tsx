@@ -1,6 +1,5 @@
-export type User = {
+export type UnsanitizedUser = {
   id: number
-  score?: number
   todayScore?: number
   userInfos: {
     age: number
@@ -13,6 +12,10 @@ export type User = {
     lipidCount: number
     proteinCount: number
   }
+}
+
+export interface User extends UnsanitizedUser {
+  score: number
 }
 
 export type Activity = {
