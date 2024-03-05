@@ -2,6 +2,10 @@ import './index.scss'
 import * as d3 from 'd3'
 import { Performance } from 'utils/types'
 
+/**
+ * Type graph props types
+ * @typedef {Props}
+ */
 type Props = {
   content: Performance
   dimensions: {
@@ -10,12 +14,24 @@ type Props = {
   }
 }
 
+/**
+ * Line type
+ * @typedef {LineData}
+ */
 type LineData = {
   value: number
   kind: number
 }
 
-export default function TypeGraph({ content, dimensions }: Props) {
+/**
+ * Type graph function component
+ * @export
+ * @param {Props} param0
+ * @param {Performance} param0.content
+ * @param {{ size: number; margin: number; }} param0.dimensions
+ * @returns {JSX.Element}
+ */
+export default function TypeGraph({ content, dimensions }: Props): JSX.Element {
   const { size, margin } = dimensions
 
   const performanceMinMax = [0, 300]
