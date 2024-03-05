@@ -30,6 +30,11 @@ function sanitizeApi(
   return object
 }
 
+/**
+ * Hook pour utiliser les données mockés.
+ * @param {string} url
+ * @returns {(User | Activity | AverageSessions | Performance)}
+ */
 export function useMock(
   url: string,
 ): User | Activity | AverageSessions | Performance {
@@ -53,6 +58,11 @@ export function useMock(
   }
 }
 
+/**
+ * Hook pour utiliser l'API du backend.
+ * @param {string} url
+ * @returns {(User | Activity | AverageSessions | Performance | undefined)}
+ */
 export function useApi(
   url: string,
 ): User | Activity | AverageSessions | Performance | undefined {
