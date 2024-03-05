@@ -1,6 +1,11 @@
 import './index.scss'
 import Logo from 'layouts/Logo'
 
+/**
+ * Nav bar function component
+ * @export
+ * @returns {JSX.Element}
+ */
 export default function Navbar(): JSX.Element {
   return (
     <nav className="navbar">
