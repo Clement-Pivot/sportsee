@@ -6,6 +6,8 @@
     'leftbar content';
   .content {
     padding: 50px 50px;
+    box-sizing: border-box;
+    max-height: 677px;
     grid-area: content;
     display: grid;
     grid-template-areas:
