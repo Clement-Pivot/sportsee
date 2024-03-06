@@ -5,11 +5,19 @@ import { useEffect, useRef } from 'react'
 import { downScale, getRange } from 'utils/helpers'
 import Tooltip from 'components/Tooltip'
 
+/**
+ * Activity graph props types
+ * @typedef {Props}
+ */
 type Props = {
   content: Activity
   dimensions: Dimensions
 }
 
+/**
+ * Tooltip's update props types
+ * @typedef {UpdateTooltipProps}
+ */
 type UpdateTooltipProps = {
   d: { kilogram: number; calories: number }
 }
