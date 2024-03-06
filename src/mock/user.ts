@@ -1,5 +1,9 @@
 import { UnsanitizedUser } from 'utils/types'
 
+/**
+ * User mocked data (not sanitized)
+ * @type {UnsanitizedUser}
+ */
 export const user: UnsanitizedUser = {
   id: 12,
   userInfos: { firstName: 'Karl', lastName: 'Dovineau', age: 31 },
