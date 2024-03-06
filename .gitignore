@@ -9,6 +9,7 @@
 *.user
 *.userosscache
 *.sln.docstates
+docs
 
 Présentation
 coverage
