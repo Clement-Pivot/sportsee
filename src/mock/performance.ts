@@ -1,5 +1,9 @@
 import { Performance } from 'utils/types'
 
+/**
+ * Performance mocked data
+ * @type {Performance}
+ */
 export const performance: Performance = {
   userId: 12,
   kind: {
