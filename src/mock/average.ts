@@ -1,5 +1,9 @@
 import { AverageSessions } from 'utils/types'
 
+/**
+ * Average sessions mocked data
+ * @type {AverageSessions}
+ */
 export const average: AverageSessions = {
   userId: 12,
   sessions: [
