@@ -16,7 +16,8 @@
     "start:back": "cd backend && npm run start",
     "build": "vite build",
     "test": "vitest run",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "docs": "jsdoc -c ./.jsdoc.conf.json"
   },
   "eslintConfig": {
     "extends": [
